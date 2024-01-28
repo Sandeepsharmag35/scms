@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Notices{% endblock %}
+{% block content %}
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Notices</h2>
+                <ul class="page-list">
+                    <li><a href="/">Home</a></li>
+                    <li>Notices</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- event area start -->
+<div class="event-area pd-top-120 pd-bottom-120">
+    <div class="container">
+        <div class="row">
+            {% if notices %}
+            {% for notice in notices %}
+            <div class="col-lg-12">
+                <div class="media single-event-inner align-items-center">
+                    <div class="media-left date">
+                        <span>{{ notice.date|date:"M" }}</span>
+                        {{ notice.date|date:"d" }}
+                    </div>
+                    <div class="media-body details">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-clock-o"></i> {{ notice.date|date:"h:i A" }}</li>
+                        </ul>
+                        <h5><a href="{% url 'notices' %}">{{ notice.title }}</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-12">
+            <nav class="td-page-navigation text-center">
+                <ul class="pagination">
+                    <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a class="active" href="#">2</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">3</a></li>
+                    <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+<!-- notice area end -->
+{% endblock %}
+
+{% block footer_subscribe %}
+<div class="footer-subscribe">
+    <div class="container">
+        <form class="footer-subscribe-inner">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="single-input-inner style-border-bottom">
+                        <input type="text" placeholder="Your Full Name">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="single-input-inner style-border-bottom">
+                        <input type="text" placeholder="Your Email Address">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <a class="btn btn-base" href="#">Subscribe</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

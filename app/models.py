@@ -10,7 +10,7 @@ def logoImageValidator(instance, filename):
     allowed_extensions = ["jpg", "jpeg", "png", "*"]
 
     if ext in allowed_extensions:
-        return f"logo/{filename}"
+        return f"info/{filename}"
     else:
         raise ValidationError(
             "Invalid file format. Only JPG, JPEG, and PNG files are allowed."
@@ -27,6 +27,7 @@ class Info(models.Model):
     twitter = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
     logo = models.ImageField(upload_to=logoImageValidator, blank=True)
+    featured_image = models.ImageField(upload_to=logoImageValidator, blank=True)
 
     def __str__(self):
         return self.name
@@ -74,3 +75,23 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Notice(models.Model):
+    title = models.CharField(max_length=255, blank=False)
+    description = HTMLField()
+    date = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+
+class NoticeImage(models.Model):
+    notice = models.ForeignKey(Notice, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="notices/", blank=True)

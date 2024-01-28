@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Info, AboutUs, AboutUsImage, Course, Team
+from .models import Info, AboutUs, AboutUsImage, Course, Team, Notice, NoticeImage
 from django.contrib import messages
 from django.core.mail import BadHeaderError, send_mail
 from django.conf import settings
@@ -8,10 +8,13 @@ from django.conf import settings
 def index(request):
     info = Info.objects.first()
     courses = Course.objects.all()
+    about_us = AboutUs.objects.first()
+    portion_of_description = about_us.description[:600]
 
     context = {
         "info": info,
         "courses": courses,
+        "about_description": portion_of_description,
     }
     return render(request, "index.html", context)
 
@@ -69,14 +72,18 @@ def contact(request):
     return render(request, "contact.html", context)
 
 
-def courses(request):
+def notices(request):
+    notices = Notice.objects.all()
+
     info = Info.objects.first()
     courses = Course.objects.all()
+
     context = {
+        "notices": notices,
         "info": info,
         "courses": courses,
     }
-    return render(request, "courses.html", context)
+    return render(request, "notices.html", context)
 
 
 def courseDetails(request, course_slug):

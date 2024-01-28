@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Info, AboutUs, Team, Course, AboutUsImage
+from .models import Info, AboutUs, AboutUsImage, Team, Course, Notice, NoticeImage
 
 # from tinymce.widgets import TinyMCE
 
@@ -36,3 +36,15 @@ class AboutUsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AboutUs, AboutUsAdmin)
+
+
+class NoticeImageInline(admin.StackedInline):
+    model = NoticeImage
+    extra = 1
+
+
+class NoticeAdmin(admin.ModelAdmin):
+    inlines = [NoticeImageInline]
+
+
+admin.site.register(Notice, NoticeAdmin)
