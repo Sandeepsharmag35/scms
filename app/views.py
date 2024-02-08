@@ -1,5 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Info, AboutUs, AboutUsImage, Course, Team, Notice, NoticeImage
+from .models import (
+    Info,
+    AboutUs,
+    AboutUsImage,
+    Course,
+    Team,
+    Notice,
+    NoticeImage,
+    Gallery,
+    GalleryImage,
+)
 from django.contrib import messages
 from django.core.mail import BadHeaderError, send_mail
 from django.conf import settings
@@ -73,7 +83,7 @@ def contact(request):
 
 
 def notices(request):
-    notices = Notice.objects.all()
+    notices = Notice.objects.all().order_by("-date")
 
     info = Info.objects.first()
     courses = Course.objects.all()
@@ -84,6 +94,44 @@ def notices(request):
         "courses": courses,
     }
     return render(request, "notices.html", context)
+
+
+def noticesDetails(request, notice_slug):
+    single_notice = get_object_or_404(Notice, slug=notice_slug)
+
+    notice_images = NoticeImage.objects.filter(notice=single_notice)
+
+    info = Info.objects.first()
+    courses = Course.objects.all()
+
+    context = {
+        "notice": single_notice,
+        "notice_images": notice_images,
+        "info": info,
+        "courses": courses,
+    }
+    return render(request, "notice-details.html", context)
+
+
+def gallery(request):
+    galleries = Gallery.objects.all()
+
+    info = Info.objects.first()
+    courses = Course.objects.all()
+
+    context = {
+        "galleries": galleries,
+        "info": info,
+        "courses": courses,
+    }
+    return render(request, "gallery.html", context)
+
+
+def galleryImages(request, gallery_id):
+    gallery = get_object_or_404(Gallery, id=gallery_id)
+
+    context = {"gallery_pictures": gallery}
+    return render(request, "gallery.html", context)
 
 
 def courseDetails(request, course_slug):

@@ -95,3 +95,14 @@ class Notice(models.Model):
 class NoticeImage(models.Model):
     notice = models.ForeignKey(Notice, default=None, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="notices/", blank=True)
+
+
+class Gallery(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class GalleryImage(models.Model):
+    gallery = models.ForeignKey(Gallery, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="gallery/", blank=True)

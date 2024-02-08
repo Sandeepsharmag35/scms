@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} {{ notice.title }} {% endblock %}
+{% block content %}
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">{{ notice.title }}</h2>
+                <ul class="page-list">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li>Notices</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- notice area start -->
+<div class="about-area pd-top-50 pd-bottom-50">
+    <div class="container">
+        <div class="about-area-inner">
+            <div class="col text-justify">
+                <div class="about-inner-wrap">
+                    <div class="section-title mb-0">
+                        <h6 class="sub-title right-line">Notice</h6>
+
+                        {% if notice_images %}
+                        <div id="aboutUsCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for notice_image in notice_images %}
+                                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                                    <img src="{{ notice_image.image.url }}" alt="About Us Image {{ forloop.counter }}"
+                                        class="d-block w-100">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#aboutUsCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#aboutUsCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="mt-2">
+                        {{ notice.description|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- notice area end -->
+
+{% endblock %}

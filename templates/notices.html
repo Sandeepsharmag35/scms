@@ -34,7 +34,7 @@
                         <ul class="blog-meta">
                             <li><i class="fa fa-clock-o"></i> {{ notice.date|date:"h:i A" }}</li>
                         </ul>
-                        <h5><a href="{% url 'notices' %}">{{ notice.title }}</a>
+                        <h5><a href="{% url 'notice-details' notice.slug %}">{{ notice.title }}</a>
                         </h5>
                     </div>
                 </div>
