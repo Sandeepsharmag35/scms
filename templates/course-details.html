@@ -1,7 +1,12 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %} {{ course.title }} {% endblock %}
-
+{% block meta %}
+<meta name="description" content="{{ course.meta_description }}" />
+<meta name="keywords" content="{{ course.meta_keywords }}" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
 {% block content %}
 <!-- breadcrumb start -->
 <div class="breadcrumb-area bg-overlay">

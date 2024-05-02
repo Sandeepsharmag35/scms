@@ -1,0 +1,21 @@
+#set false in production
+DEBUG=False
+
+#secret key
+SECRET_KEY=
+
+#email 
+EMAIL_PORT=587
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+
+
+#DATABASE
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=db_name
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_PORT=3306
+
+

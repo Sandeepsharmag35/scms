@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tinymce",
     "app",
+    "events",
+    "blog",
     "decouple",
 ]
 

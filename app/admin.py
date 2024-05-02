@@ -5,13 +5,10 @@ from .models import (
     AboutUsImage,
     Team,
     Course,
-    Notice,
-    NoticeImage,
     Gallery,
     GalleryImage,
+    Message,
 )
-
-# from tinymce.widgets import TinyMCE
 
 
 # Register your models here.
@@ -48,18 +45,6 @@ class AboutUsAdmin(admin.ModelAdmin):
 admin.site.register(AboutUs, AboutUsAdmin)
 
 
-class NoticeImageInline(admin.StackedInline):
-    model = NoticeImage
-    extra = 1
-
-
-class NoticeAdmin(admin.ModelAdmin):
-    inlines = [NoticeImageInline]
-
-
-admin.site.register(Notice, NoticeAdmin)
-
-
 class GalleryImageInline(admin.StackedInline):
     model = GalleryImage
     extra = 3
@@ -70,3 +55,10 @@ class GalleryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Gallery, GalleryAdmin)
+
+
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ["id", "name"]
+
+
+admin.site.register(Message, MessageAdmin)

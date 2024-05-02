@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Blog{% endblock %}
+{% block meta %}
+<meta name="description"
+    content="Explore insightful articles, news and blog posts on various topics. Stay informed with our latest blog content.">
+
+<meta name="keywords" content="blog, news" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+{% block content %}
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Blog</h2>
+                <ul class="page-list">
+                    <li><a href="/">Home</a></li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- blog area start -->
+<div class="blog-area pd-top-120 pd-bottom-120">
+    <div class="container">
+        <div class="row">
+            {% if blogs %}
+
+            <div class="col-lg-8">
+                {% for blog in blogs %}
+                <div class="single-blog-inner style-border">
+                    <div class="thumb">
+                        <img src="{{ blog.featured_image.url }}" width="770px" height="400px" alt="img"
+                            style="object-fit: cover;">
+                    </div>
+                    <div class="details">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-user"></i> BY {{ blog.author }}</li>
+                            <li><i class="fa fa-calendar-check-o"></i> {{ blog.created_at|date:"d F, Y"|upper }}
+                            </li>
+                        </ul>
+                        <h3 class="title"><a href="{% url 'blog-details' blog.slug %}">{{ blog.title }}</a>
+                        </h3>
+                        <p>{{ blog.meta_description }}</p>
+                        <a class="read-more-text" href="{% url 'blog-details' blog.slug %}">READ MORE <i
+                                class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+                <nav class="td-page-navigation text-center">
+                    <ul class="pagination">
+                        <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a class="active" href="#">2</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">3</a></li>
+                        <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            {% else %}
+            <div class="col-lg-8">
+                <div class="single-blog-inner style-border">
+                    <div class="details">
+                        <h3 class="title text-center"><a>No Posts Available Right Now!</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-lg-4 col-12">
+                <div class="td-sidebar">
+                    <div class="widget widget_search">
+                        <form class="search-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search">
+                            </div>
+                            <button class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog area end -->
+{% endblock %}

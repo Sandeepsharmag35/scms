@@ -3940,7 +3940,6 @@ ul {
 .single-gallery-inner .thumb:after {
   content: "";
   position: absolute;
-  background-image: linear-gradient(to top, #022334 11%, rgba(255, 255, 255, 0));
   height: 85%;
   width: 100%;
   left: 0;

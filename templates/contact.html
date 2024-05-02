@@ -1,6 +1,12 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}Contact Us{% endblock %}
+{% block meta %}
+<meta name="description" content="Please fill out the given form to contact us." />
+<meta name="keywords" content="contact, contact us" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
 {% block content %}
 <!-- breadcrumb start -->
 <div class="breadcrumb-area bg-overlay">

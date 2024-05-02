@@ -27,32 +27,56 @@
                     <div class="section-title mb-0">
                         <h6 class="sub-title right-line">Notice</h6>
 
-                        {% if notice_images %}
-                        <div id="aboutUsCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- {% if notice_images %}
+                        <div id="noticeCarousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 {% for notice_image in notice_images %}
                                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                                    <img src="{{ notice_image.image.url }}" alt="About Us Image {{ forloop.counter }}"
-                                        class="d-block w-100">
+                                    <img src="{{ notice_image.image.url }}" alt="Notice Image {{ forloop.counter }}"
+                                        class="d-block img-thumbnail">
                                 </div>
                                 {% endfor %}
                             </div>
-                            <a class="carousel-control-prev" href="#aboutUsCarousel" role="button" data-slide="prev">
+                            <a class="carousel-control-prev" href="#noticeCarousel" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#aboutUsCarousel" role="button" data-slide="next">
+                            <a class="carousel-control-next" href="#noticeCarousel" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
-                        </div>
-                        {% endif %}
+                        </div> 
+                        {% endif %} -->
 
                     </div>
                     <div class="mt-2">
                         {{ notice.description|safe }}
                     </div>
                 </div>
+                <div class="row">
+                    {% for image in notice_images.all %}
+                    <div class="col-md-3">
+                        <div class="image-gallery">
+
+                            <a href="{{ image.image.url }}" target="">
+                                <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-thumbnail"
+                                    style="aspect-ratio: 3/2; object-fit: contain; margin-bottom: 50px;">
+                            </a>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <script>
+                    // JavaScript for full-screen image preview
+                    $(document).ready(function () {
+                        $('.image-gallery a').click(function (event) {
+                            event.preventDefault();
+                            var imageUrl = $(this).attr('href');
+                            window.open(imageUrl, '_blank');
+                        });
+                    });
+                </script>
             </div>
         </div>
     </div>

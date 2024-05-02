@@ -27,7 +27,12 @@ class Info(models.Model):
     twitter = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
     logo = models.ImageField(upload_to=logoImageValidator, blank=True)
+    favicon = models.ImageField(upload_to=logoImageValidator, blank=True)
     featured_image = models.ImageField(upload_to=logoImageValidator, blank=True)
+
+    meta_description = models.CharField(max_length=200, blank=True)
+    meta_keywords = models.CharField(max_length=100, blank=True)
+    url = models.URLField(blank=True)
 
     def __str__(self):
         return self.name
@@ -35,6 +40,9 @@ class Info(models.Model):
 
 class AboutUs(models.Model):
     description = HTMLField()
+
+    meta_description = models.CharField(max_length=200, blank=True)
+    meta_keywords = models.CharField(max_length=100, blank=True)
 
 
 class AboutUsImage(models.Model):
@@ -62,10 +70,15 @@ class Team(models.Model):
     facebook = models.URLField(blank=True)
     picture = models.ImageField(upload_to="OurTeam/", blank=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Course(models.Model):
     title = models.CharField(max_length=20, unique=True, blank=False)
     description = HTMLField()
+    meta_description = models.CharField(max_length=200, blank=True)
+    meta_keywords = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -75,26 +88,6 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Notice(models.Model):
-    title = models.CharField(max_length=255, blank=False)
-    description = HTMLField()
-    date = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
-
-
-class NoticeImage(models.Model):
-    notice = models.ForeignKey(Notice, default=None, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="notices/", blank=True)
 
 
 class Gallery(models.Model):
@@ -106,3 +99,8 @@ class Gallery(models.Model):
 class GalleryImage(models.Model):
     gallery = models.ForeignKey(Gallery, default=None, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="gallery/", blank=True)
+
+
+class Message(models.Model):
+    name = models.ForeignKey(Team, default=None, on_delete=models.CASCADE)
+    message = models.TextField(blank=False)

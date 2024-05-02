@@ -1,9 +1,17 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}Notices{% endblock %}
+{% block meta %}
+<meta name="description"
+    content="Find notices about upcoming events, changes in schedules, deadlines, and more. Stay informed and connected with our community. Explore our notices page to stay ahead and never miss an important update.">
+
+<meta name="keywords" content="notice, Notices" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
 {% block content %}
 <!-- breadcrumb start -->
-<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+<div class="breadcrumb-area bg-overlay">
     <div class="container">
         <div class="breadcrumb-inner">
             <div class="section-title mb-0 text-center">
@@ -27,7 +35,7 @@
             <div class="col-lg-12">
                 <div class="media single-event-inner align-items-center">
                     <div class="media-left date">
-                        <span>{{ notice.date|date:"M" }}</span>
+                        <span>{{ notice.date|date:"M"| upper }}</span><br>
                         {{ notice.date|date:"d" }}
                     </div>
                     <div class="media-body details">

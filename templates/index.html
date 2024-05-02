@@ -17,7 +17,21 @@
         {% endblock %}
 
     </title>
-    <link rel=icon href="{{ info.logo.url }}" sizes="20x20" type="image/.png">
+    {% block meta %}
+    <meta name="description" content="{{ info.meta_description }}" />
+    <meta name="keywords" content="{{ info.meta_keywords }}" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="{{ info.url }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ info.name }}" />
+    <meta property="og:description" content="{{ info.meta_description }}" />
+    <meta property="og:url" content="{{ info.url }}" />
+    <meta property="og:site_name" content="{{ info.name }}" />
+
+    {% endblock %}
+
+    <link rel=icon href="{{ info.favicon.url }}" sizes="20x20" type="image/.png">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{% static 'assets/css/vendor.css' %}">
@@ -126,7 +140,7 @@
                             <a href="/">Home</a>
                         </li>
                         <li><a href="{% url 'about' %}">About Us</a></li>
-                        <li><a href="{% url 'notices' %}">Notices</a></li>
+
                         <li class="menu-item-has-children">
                             <a>Courses</a>
                             {% if courses %}
@@ -137,13 +151,13 @@
                             </ul>
                             {% endif %}
                         </li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
                         <li class="menu-item-has-children">
                             <a href="#">Pages</a>
                             <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="event.html">Event</a></li>
-                                <li><a href="event-details.html">Event Details</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="{% url 'notices' %}">Notices</a></li>
+                                <li><a href="{% url 'events' %}">Events</a></li>
+                                <li><a href="{% url 'blog' %}">Blogs</a></li>
                                 <!-- <li><a href="signin.html">Sign In</a></li>
                                 <li><a href="signup.html">Sign Up</a></li> -->
                             </ul>
@@ -171,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
+                    <!-- <a class="search-bar" href="#"><i class="fa fa-search"></i></a> -->
                 </div>
             </div>
         </nav>
@@ -334,49 +348,47 @@
     </div>
     <!-- about area end -->
 
-    <!-- course area start -->
-    <!-- <div class="course-area pd-top-110 pd-bottom-90">
+    <!-- message area start -->
+    {% if msg %}
+    <div class="message-area pd-top-110 pd-bottom-90">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section-title text-center">
-                        <h6 class="sub-title double-line">OUR COURSES</h6>
-                        <h2 class="title">Top Featured Courses</h2>
+                        <h6 class="sub-title double-line">Message</h6>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-course-inner style-two">
-                        <div class="emt-thumb-icon">
-                            <img src="{% static 'assets/img/icon/6.png' %}" alt="img">
-                        </div>
+                {% for message in msg %}
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="single-course-inner">
+                        <h3 class="title text-center justify-content-center">Message From {{ message.name.post }}</h3>
                         <div class="thumb">
-                            <img src="{% static 'assets/img/course/1.png' %}" alt="img">
+                            <img width="100%" height="250px" src="{{ message.name.picture.url }}" alt="img"
+                                style="object-fit: contain;">
+                            <h5 class="text-center mt-3">- {{ message.name }}</h5>
                         </div>
+                        <hr>
                         <div class="details">
-                            <div class="emt-course-meta border-0">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <h6><a href="course-details.html">Creative resilience</a></h6>
-                                    </div>
-                                    <div class="col-2 text-right">
-                                        <a class="arrow-right" href="course-details.html"><img
-                                                src="{% static 'assets/img/icon/5.png' %}" alt="img"></a>
-                                    </div>
+                            <div class="row">
+                                <div class="col-11 m-auto">
+                                    <p class="text-justify">{{ message.message }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            
+                {% endfor %}
+
             </div>
         </div>
-    </div> -->
-    <!-- course area end -->
+    </div>
+    {% endif %}
+    <!-- message area end -->
 
     <!--events-area start-->
-    <div class="events-area pd-top-110 pd-bottom-120">
+    <div class="events-area pd-top-100 pd-bottom-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-7 col-md-11">
@@ -386,130 +398,60 @@
                     </div>
                 </div>
             </div>
+
             <div class="row justify-content-center">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <ul class="single-blog-list-wrap style-white" style="background-color: var(--heading-color);">
+                        {% if events %}
+                        {% for event in events %}
                         <li>
                             <div class="media single-blog-list-inner style-white">
                                 <div class="media-left date">
-                                    <span>JAN</span>
-                                    20
+                                    <span>{{ event.date|date:"M"| upper }}</span><br>
+                                    {{ event.date|date:"d" }}
                                 </div>
                                 <div class="media-body details">
                                     <ul class="blog-meta">
-                                        <li><i class="fa fa-user"></i> BY ADMIN</li>
-                                        <li><i class="fa fa-folder-open-o"></i> Air transport</li>
+                                        <li><i class="fa fa-clock-o"></i> {{ event.date|date:"h:i A" }}</li>
                                     </ul>
-                                    <h5><a href="blog-details.html">Clone sit amet, consec tetur elit</a></h5>
+                                    <h5><a href="{% url 'event-details' event.slug %}">{{ event.title }}</a>
+                                    </h5>
                                 </div>
                             </div>
                         </li>
+                        {% endfor %}
+                        {% else %}
                         <li>
                             <div class="media single-blog-list-inner">
-                                <div class="media-left date">
-                                    <span>FEB</span>
-                                    26
-                                </div>
+
                                 <div class="media-body details">
-                                    <ul class="blog-meta">
-                                        <li><i class="fa fa-user"></i> BY ADMIN</li>
-                                        <li><i class="fa fa-folder-open-o"></i> Air transport</li>
-                                    </ul>
-                                    <h5><a href="blog-details.html">Maecenas interdum lorem eleifend</a></h5>
+                                    <h2 style="color: white; text-align: center;"><a href="">No Events Scheduled For
+                                            Now! </a></h2>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="media single-blog-list-inner">
-                                <div class="media-left date">
-                                    <span>JAN</span>
-                                    28
-                                </div>
-                                <div class="media-body details">
-                                    <ul class="blog-meta">
-                                        <li><i class="fa fa-user"></i> BY ADMIN</li>
-                                        <li><i class="fa fa-folder-open-o"></i> Air transport</li>
-                                    </ul>
-                                    <h5><a href="blog-details.html">Nunc scelerisque tincidunt elit. </a></h5>
-                                </div>
-                            </div>
-                        </li>
+                        {% endif %}
                     </ul>
                 </div>
-                <div class="col-lg-4 align-self-center">
-                    <div class="event-thumb">
-                        <img src="{% static 'assets/img/other/events.png' %}" alt="img">
-                    </div>
-                </div>
             </div>
+
         </div>
     </div>
     <!--events-area end-->
-
-    <!-- testimonial area start -->
-    <div class="testimonial-area pd-top-110 pd-bottom-120"
-        style="background-image: url(assets/img/testimonial/bg.png); background-size: cover; background-position: center;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-lg-7 col-md-11">
-                    <div class="section-title text-center">
-                        <h6 class="sub-title double-line">Client Testimonials</h6>
-                        <h2 class="title">What our clients say </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-slider-2 owl-carousel">
-                <div class="item">
-                    <div class="single-testimonial-inner">
-                        <span class="testimonial-quote"><i class="fa fa-quote-right"></i></span>
-                        <p>Lorem ipsum dolor sit amet, consect etur adipiscing elit. Duis at est id leo luctus gravida a
-                            in ipsum.</p>
-                        <div class="media testimonial-author">
-                            <div class="media-left">
-                                <img src="{% static 'assets/img/testimonial/1.png' %}" alt="img">
-                            </div>
-                            <div class="media-body align-self-center">
-                                <h6>Eugene Freeman</h6>
-                                <p>Tincidunt</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="single-testimonial-inner">
-                        <span class="testimonial-quote"><i class="fa fa-quote-right"></i></span>
-                        <p>Lorem ipsum dolor sit amet, consect etur adipiscing elit. Duis at est id leo luctus gravida a
-                            in ipsum.</p>
-                        <div class="media testimonial-author">
-                            <div class="media-left">
-                                <img src="{% static 'assets/img/testimonial/2.png' %}" alt="img">
-                            </div>
-                            <div class="media-body align-self-center">
-                                <h6>Kelly Coleman</h6>
-                                <p>Nulla nec</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- testimonial area end -->
 
     {% endblock %}
     <footer class="footer-area footer-area-2 bg-gray">
         <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="widget widget_about text-center">
-                            <a href="{% url 'home' %}"><img src="{{ info.logo.url }}" alt="img"></a>
+                            <a href="{% url 'home' %}"><img src="{{ info.logo.url }}" alt="img"
+                                    style="aspect-ratio: 1/1;"></a>
                             <div class="details">
-                                <p>Lumbini ICT Campus is one of the leading reputed and renowned institution well known
-                                    for never ending dedication and devotion to quality education and a candid temple of
-                                    knowledge and wisdom.</p>
+                                <p>{{ info.meta_description }}</p>
                                 <ul class="social-media">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="{{ info.facebook }}"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
@@ -517,7 +459,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="widget widget_contact">
                             <h4 class="widget-title">Contact Us</h4>
                             <ul class="details">
@@ -527,7 +469,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <!-- <div class="col-lg-3 col-md-6">
                         <div class="widget widget_blog_list">
                             <h4 class="widget-title">News & Blog</h4>
                             <ul>
@@ -541,8 +483,8 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
+                    </div> -->
+                    <div class="col-lg-4 col-md-6">
                         <div class="widget widget_nav_menu">
                             <h4 class="widget-title">Course</h4>
                             <ul>

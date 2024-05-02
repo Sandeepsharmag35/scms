@@ -1,0 +1,147 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+{{ blog.title }}
+{% endblock %}
+{% block meta %}
+<meta name="description"
+    content="Explore insightful articles, news and blog posts on various topics. Stay informed with our latest blog content.">
+
+<meta name="keywords" content="blog, news" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+{% block content %}
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Blog Details</h2>
+                <ul class="page-list">
+                    <li><a href="/">Home</a></li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- blog area start -->
+<div class="blog-area pd-top-120 pd-bottom-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-details-page-content">
+                    <div class="single-blog-inner">
+                        <div class="thumb">
+                            <img src="{{ blog.featured_image.url }}" width="770px" height="450px" alt="img"
+                                style="object-fit: cover;">
+                        </div>
+                        <div class="details">
+                            <ul class="blog-meta">
+                                <li><i class="fa fa-user"></i> BY {{ blog.author }}</li>
+                                <li><i class="fa fa-calendar-check-o"></i> {{ blog.created_at|date:"d F, Y"|upper }}
+                                </li>
+                            </ul>
+                            <h3 class="title">{{ blog.title }}</h3>
+                            {{ blog.content | safe }}
+                        </div>
+                    </div>
+                    <div class="tag-and-share">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h6>Related Tags :</h6>
+                                <div class="tags">
+                                    <a href="#">Treands, </a>
+                                    <a href="#">Inttero, </a>
+                                    <a href="#">Estario</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-sm-right">
+                                <div class="blog-share">
+                                    <h6>Share :</h6>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook-f" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="td-sidebar">
+                    <div class="widget widget_search">
+                        <form class="search-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search">
+                            </div>
+                            <button class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="widget widget_catagory">
+                        <h4 class="widget-title">Catagory</h4>
+                        <ul class="catagory-items">
+                            <li><a href="#">Tempor lorem interdum <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Auctor mattis lacus <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Dolor proin <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Pharetra amet <i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="widget widget-recent-post">
+                        <h4 class="widget-title">Recent News</h4>
+                        <ul>
+                            <li>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="assets/img/widget/1.png" alt="blog">
+                                    </div>
+                                    <div class="media-body align-self-center">
+                                        <h5 class="title"><a href="single-blog.html">Integer at faucibus urna.
+                                                Nullam condtum</a></h5>
+                                        <div class="post-info"><i class="fa fa-calendar"></i><span>15 October</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="assets/img/widget/2.png" alt="blog">
+                                    </div>
+                                    <div class="media-body align-self-center">
+                                        <h5 class="title"><a href="single-blog.html">Custom Platform for an Audit
+                                                Insurance</a></h5>
+                                        <div class="post-info"><i class="fa fa-calendar"></i><span>15 October</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="assets/img/widget/3.png" alt="blog">
+                                    </div>
+                                    <div class="media-body align-self-center">
+                                        <h5 class="title"><a href="single-blog.html">Famous app Developers and
+                                                Designer</a></h5>
+                                        <div class="post-info"><i class="fa fa-calendar"></i><span>15 October</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog area end -->
+{% endblock %}

@@ -1,6 +1,16 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}Gallery{% endblock %}
+
+{% block meta %}
+<meta name="description"
+    content="Explore our gallery and immerse yourself in a collection of captivating images. Discover stunning photography, artwork, and visual stories that showcase the beauty of our community, events, and projects." />
+
+<meta name="keywords" content="gallery" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
 {% block content %}
 
 <!-- breadcrumb start -->
@@ -22,74 +32,30 @@
 <!-- team area start -->
 <div class="team-area pd-top-120 pd-bottom-90">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6">
+        {% if gallery_data %}
+        {% for data in gallery_data %}
+
+        <h6 class="d-block">{{ data.gallery.title }}</h6>
+        <p>{{ data.gallery.description | safe }}</p>
+
+
+        <div class="row justify-content-left">
+            {% for image in data.images %}
+
+            <div class="col-lg-3 col-md-2">
                 <div class="single-gallery-inner">
                     <div class="thumb">
-                        <img src="assets/img/gallery/1.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Furus fermentum </a></h4>
+                        <img class="w-100" src="{{ image.image.url }}" alt="img" style="aspect-ratio: 3/2;">
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-gallery-inner">
-                    <div class="thumb">
-                        <img src="assets/img/gallery/2.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Sadip fermentum</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-gallery-inner">
-                    <div class="thumb">
-                        <img src="assets/img/gallery/3.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Furus fermentum</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-gallery-inner">
-                    <div class="thumb">
-                        <img src="assets/img/gallery/4.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Fermentum Cons</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-gallery-inner">
-                    <div class="thumb">
-                        <img src="assets/img/gallery/5.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Furus fermentum</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-gallery-inner">
-                    <div class="thumb">
-                        <img src="assets/img/gallery/6.png" alt="img">
-                    </div>
-                    <div class="details">
-                        <span>Consetetur Sadipscing</span>
-                        <h4><a href="#">Pscing fermentum </a></h4>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        <hr>
+        </hr>
+
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
 <!-- team area end -->

@@ -1,6 +1,12 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}About Us{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ about.meta_description }}" />
+<meta name="keywords" content="{{ about.meta_keywords }}" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
 {% block content %}
 <!-- breadcrumb start -->
 <div class="breadcrumb-area bg-overlay">
@@ -22,11 +28,6 @@
 <div class="about-area pd-top-50 pd-bottom-50">
     <div class="container">
         <div class="about-area-inner">
-            <!-- <div class="row">
-                <div class="col-lg-6 col-md-10">
-                     <div class="about-thumb-wrap after-shape" style="background-image: url('assets/img/about/2.png');">
-                    </div> 
-                </div> -->
             <div class="col text-justify">
                 <div class="about-inner-wrap">
                     <div class="section-title mb-0">
@@ -38,7 +39,7 @@
                                 {% for about_us_image in about_us_images %}
                                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
                                     <img src="{{ about_us_image.image.url }}" alt="About Us Image {{ forloop.counter }}"
-                                        class="d-block w-100">
+                                        class="d-block w-100" style="aspect-ratio: 16/8;">
                                 </div>
                                 {% endfor %}
                             </div>
@@ -84,7 +85,7 @@
                 <div class="single-team-inner">
                     <div class="thumb">
                         {% if team.picture %}
-                        <img src="{{ team.picture.url }}" alt="img" height="350px">
+                        <img src="{{ team.picture.url }}" alt="img" class="w-100" style="aspect-ratio: 3/2;">
                         {% else %}
                         <img src="{% static 'assets/img/team/2.png' %}" alt="img">
                         {% endif %}
