@@ -2,7 +2,8 @@
 DEBUG=False
 
 #secret key
-SECRET_KEY=
+SECRET_KEY=django-insecure-&jvd!ti*aw@43awpcw@pspn)uziskf^ky8_5z2cdtq5l)zjy@x
+
 
 #email 
 EMAIL_PORT=587
