@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  # Django application service
+  app:
+    build: . # Build the image from the current directory (where Dockerfile resides)
+    ports:
+      - "8000:8000" # Map container port 8000 to host port 8000
+    volumes:
+      - .:/app # Mount current directory as /app inside the container (for code changes)
+    environment:
+      - DJANGO_SETTINGS_MODULE=scms.settings # Replace with your project's settings module
+      - DATABASE_URL=mysql://sandip:Sandip@456@db:3306/scms_db # MySQL connection details
+
+  # MySQL service
+  db:
+    image: mysql:8.0 # Use a MySQL image
+    environment:
+      - MYSQL_DATABASE=scms_db # Replace with your database name
+      - MYSQL_USER=scms_sandip # Replace with your database username
+      - MYSQL_PASSWORD=Sandip@456 # Replace with your database password
+    volumes:
+      - mysql_data:/var/lib/mysql/data # Persist database data using a volume
+
+volumes:
+  # Volume to store database data
+  mysql_data: {}
