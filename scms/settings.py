@@ -25,16 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['https://scms.sharmasandip.com.np', '*']
+ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000'
-    'https://sharmasandip.com',
-    'https://www.sharmasandip.com',
-    'https://scms.sharmasandip.com.np'
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     'http://localhost:8000'
+#     'https://sharmasandip.com',
+#     'https://www.sharmasandip.com',
+#     'https://scms.sharmasandip.com.np'
+# ]
 
 # Application definition
 INSTALLED_APPS = [
