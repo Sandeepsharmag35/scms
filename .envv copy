@@ -1,3 +1,4 @@
+#env
 #set false in production
 DEBUG=False
 
