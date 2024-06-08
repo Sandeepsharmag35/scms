@@ -11,7 +11,8 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=scms.settings # Replace with your project's settings module
       - DATABASE_URL=mysql://sandip:Sandip@456@db:3306/scms_db # MySQL connection details
-
+    restart: always
+    
   # MySQL service
   db:
     image: mysql:8.0 # Use a MySQL image
@@ -21,6 +22,7 @@ services:
       - MYSQL_PASSWORD=Sandip@456 # Replace with your database password
     volumes:
       - mysql_data:/var/lib/mysql/data # Persist database data using a volume
+    restart: always
 
 volumes:
   # Volume to store database data
