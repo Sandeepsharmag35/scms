@@ -1,4 +1,4 @@
-#set false in production
+#set false in production.
 DEBUG=False
 
 #secret key
