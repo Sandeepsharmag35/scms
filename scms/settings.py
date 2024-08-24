@@ -27,17 +27,17 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000'
-    'https://sharmasandip.com',
-    'https://www.sharmasandip.com',
-    'https://scms.sharmasandip.com.np'
+    "http://localhost:8000" "https://sharmasandip.com",
+    "https://www.sharmasandip.com",
+    "https://scms.sharmasandip.com.np",
 ]
 
 # Application definition
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -135,8 +135,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 if DEBUG:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-else :
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Media files (User-uploaded files)
 MEDIA_URL = "/media/"
@@ -157,3 +157,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Lumbini ICT Campus",
+    "site_brand": "Lumbini ICT Campus",
+}
