@@ -30,7 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000" "https://sharmasandip.com",
+    "http://localhost:8000",
+    "https://sharmasandip.com",
     "https://www.sharmasandip.com",
     "https://scms.sharmasandip.com.np",
 ]
